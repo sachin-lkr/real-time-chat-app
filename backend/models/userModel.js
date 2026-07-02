@@ -1,4 +1,4 @@
-import mongoose, { models }  from "mongoose";
+import mongoose  from "mongoose";
 const userModel = new mongoose.Schema({
     fullname:{
         type:String,
