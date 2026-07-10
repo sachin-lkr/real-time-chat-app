@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+body{
+    background-image:url(../public/background.jfif) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+   background: linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#312e81,
+#4f46e5
+);
+   
+}
