@@ -1,7 +1,49 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setAuthUser } from "../redux/userSlice";
 
 const Login = () => {
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+  const naviGate = useNavigate();
+  const dispatch =useDispatch();
+  const onSubmitHeandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        `http://localhost:5000/api/v1/user/login`,
+        user,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        },
+      );
+      console.log(res);
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        naviGate("/");
+        console.log(res.data)
+        dispatch(setAuthUser(res.data));
+      }
+
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+    setUser({
+      username: "",
+      password: "",
+    });
+  };
+
   return (
     <div className=" flex items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800 p-4">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20">
@@ -9,7 +51,7 @@ const Login = () => {
           Log-In
         </h1>
 
-        <form>
+        <form onSubmit={onSubmitHeandler}>
           <div className="space-y-4">
             <div>
               <label htmlFor="username" className="text-white font-medium">
@@ -22,6 +64,8 @@ const Login = () => {
                 name="username"
                 placeholder="Enter Username"
                 className="input input-bordered w-full mt-2"
+                value={user.username}
+                onChange={(e) => setUser({ ...user, username: e.target.value })}
               />
             </div>
 
@@ -36,12 +80,14 @@ const Login = () => {
                 name="password"
                 placeholder="Enter Password"
                 className="input input-bordered w-full mt-2"
+                value={user.password}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
             </div>
 
-           
-
-            <button className="btn btn-primary w-full mt-2">Log In</button>
+            <button className="btn btn-primary w-full mt-2" type="submit">
+              Log In
+            </button>
 
             <p className="text-center text-gray-300">
               Create an account?

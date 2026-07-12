@@ -2,6 +2,7 @@ import {User} from "../models/userModel.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 export const register = async(req,res)=>{
+     console.log(req.body);
     try {
         const {fullname,username,password, confirmpassword,gender}=req.body;
         if(!fullname || !username || !password || !confirmpassword || !gender){
@@ -27,7 +28,8 @@ export const register = async(req,res)=>{
             profileimage:gender === "male" ?maleProfilePhoto:femaleProfilePhoto,
         });
         return res.status(201).json({
-            message:"account is created success"
+            message:"account is created success",
+            success:true
         })
         
     } catch (error) {
@@ -40,6 +42,7 @@ export const register = async(req,res)=>{
 
 export const login = async (req,res)=>{
     try {
+        
         const {username,password}=req.body;
         if( !username || !password ){
             return res.status(400).json({message:"all fields are required"})
@@ -69,8 +72,11 @@ export const login = async (req,res)=>{
             _id:user._id,
             username:user.username,
             fullname:user.fullname,
-            profileimage:user.profileimage
-        })
+            profileimage:user.profileimage,
+             message:"loging",
+            success:true
+        });
+        
         
     } catch (error) {
         console.log(error)

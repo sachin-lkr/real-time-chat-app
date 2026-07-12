@@ -4,6 +4,7 @@ import connectDB from "./config/database.js";
 import userRoute from "./routes/userRoutes.js"  
 import cookieParser from "cookie-parser";  
 import messageRoute from "./routes/messageRoute.js" 
+import cors from "cors";
 
 
 dotenv.config({});
@@ -14,7 +15,12 @@ const PORT =process.env.PORT || 3000
 // middleware
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(express.urlencoded({extended:true}))
+const corsOption={
+    origin:'http://localhost:5173',
+    credentials:true
+};
+app.use(cors(corsOption));
 // test route
 app.get("/",(req,res)=>{
  res.send("Backend Running");

@@ -1,23 +1,46 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios"
 
 const SignUp = () => {
   const [user, setUser] = useState({
-    fullName: "",
-    userName: "",
+    fullname: "",
+    username: "",
     password: "",
-    confirmPass: "",
+    confirmpassword: "",
     gender: "",
   });
 
-  const onSubmitHeandler = (e) => {
+  const naviGate=useNavigate();
+
+  const onSubmitHeandler =async (e) => {
     e.preventDefault();
-    console.log(user);
+    try {
+      const res= await axios.post(`http://localhost:5000/api/v1/user/register`,user,{
+        headers:{
+          "Content-Type":"application/json"
+        },
+        withCredentials:true
+      });
+      console.log(res);
+        
+     if(res.data.success){
+      toast.success(res.data.message);
+      naviGate("/login");
+
+     }
+      
+    } catch (error) {
+      
+      console.log(error);
+      
+    }
     setUser({
-      fullName: "",
-      userName: "",
+      fullname: "",
+      username: "",
       password: "",
-      confirmPass: "",
+      confirmpassword: "",
       gender: "",
     });
   };
@@ -45,8 +68,8 @@ const SignUp = () => {
                 name="fullname"
                 placeholder="Enter Full Name"
                 className="input input-bordered w-full mt-2"
-                value={user.fullName}
-                onChange={(e) => setUser({ ...user, fullName: e.target.value })}
+                value={user.fullname}
+                onChange={(e) => setUser({ ...user, fullname: e.target.value })}
               />
             </div>
 
@@ -61,8 +84,8 @@ const SignUp = () => {
                 name="username"
                 placeholder="Enter Username"
                 className="input input-bordered w-full mt-2"
-                value={user.userName}
-                onChange={(e) => setUser({ ...user, userName: e.target.value })}
+                value={user.username}
+                onChange={(e) => setUser({ ...user, username: e.target.value })}
               />
             </div>
 
@@ -96,9 +119,9 @@ const SignUp = () => {
                 name="confirmPassword"
                 placeholder="Confirm Password"
                 className="input input-bordered w-full mt-2"
-                value={user.confirmPass}
+                value={user.confirmpassword}
                 onChange={(e) =>
-                  setUser({ ...user, confirmPass: e.target.value })
+                  setUser({ ...user, confirmpassword: e.target.value })
                 }
               />
             </div>
