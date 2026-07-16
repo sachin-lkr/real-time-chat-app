@@ -11,7 +11,7 @@ const Login = () => {
     password: "",
   });
   const naviGate = useNavigate();
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
   const onSubmitHeandler = async (e) => {
     e.preventDefault();
     try {
@@ -30,10 +30,9 @@ const Login = () => {
       if (res.data.success) {
         toast.success(res.data.message);
         naviGate("/");
-        console.log(res.data)
+        console.log(res.data);
         dispatch(setAuthUser(res.data));
       }
-
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error);
