@@ -1,24 +1,31 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedUser } from "../redux/userSlice";
 
-function OtherUser() {
+
+function OtherUser({ users }) {
+  const dispatch = useDispatch();
+  const { selectedUser } = useSelector((store) => store.user);
+  const selectedUserHandler = (users) => {
+    dispatch(setSelectedUser(users));
+  };
   return (
-    <div>
-      <div className="flex  items-center gap-5 text-white hover:text-black hover:bg-zinc-200 rounded-sm p-2 cursor-pointer">
+    <>
+      <div
+        onClick={() => selectedUserHandler(users)}
+        className={`${selectedUser?._id === users?._id ? "bg-zinc-200  " : "text-white" } flex  items-center gap-5   hover:text-black hover:bg-zinc-200 rounded-sm p-2 cursor-pointer`}
+      >
         <div className="avatar avatar-online  ">
           <div className="w-10 rounded-full">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM1qmyAQWiULIEIIE2lRszNSKrbLUkVpYk2CVGVYfdfA&s=10"
-              alt="avtar"
-              className=""
-            />
+            <img src={users?.profileimage} alt="avtar" className="" />
           </div>
         </div>
         <div>
-            <p>sachin kumar bind </p>
+          <p>{users?.fullname} </p>
         </div>
       </div>
       <div className="divider my-0 py-0"></div>
-    </div>
+    </>
   );
 }
 
