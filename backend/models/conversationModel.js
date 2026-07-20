@@ -10,7 +10,7 @@ const conversationModel= new mongoose.Schema({
     messages:[
         {
            type:mongoose.Schema.Types.ObjectId,
-            ref:"User"  
+            ref:"Message"  
         }
     ]
 
