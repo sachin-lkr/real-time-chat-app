@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setOtherUsers } from "../redux/userSlice";
+
 
 function Sidebar() {
+  const [search, setSearch] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const { OtherUsers: otherUsers } = useSelector((store) => store.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const logoutHandler = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/api/v1/user/logout`);
@@ -16,10 +23,44 @@ function Sidebar() {
       console.log(error);
     }
   };
+
+ const searchSubmitHandler = (e) => {
+  e.preventDefault();
+
+  const searchText = search.trim().toLowerCase();
+
+  // if search input blank then show all users
+  if (!searchText) {
+    setFilteredUsers(otherUsers || []);
+    return;
+  }
+
+  
+  const filtered = otherUsers?.filter((user) =>
+    user.fullname?.toLowerCase().includes(searchText)
+  );
+
+  if (filtered?.length > 0) {
+    setFilteredUsers(filtered);
+  } else {
+    setFilteredUsers([]);
+    toast.error("User does not exist");
+  }
+};
+
+useEffect(() => {
+  setFilteredUsers(otherUsers || []);
+}, [search]);
   return (
     <div className="border=r border-slate-500 p-4 flex flex-col w-[320px]  ">
-      <form action="#" className="flex items-center gap-1.5">
+      <form
+        onSubmit={searchSubmitHandler}
+        action="#"
+        className="flex items-center gap-1.5"
+      >
         <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search...."
           className="input input-bordered rounded-md "
@@ -29,7 +70,7 @@ function Sidebar() {
         </button>
       </form>
       <div className="divider px-3"></div>
-      <OtherUsers />
+      <OtherUsers users={filteredUsers} />
       <div className=" mt-2">
         <button
           onClick={logoutHandler}
