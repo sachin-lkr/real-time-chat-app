@@ -4,6 +4,8 @@ import HomePage from './components/HomePage';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 
+
+
 const router = createBrowserRouter([
   {
     path:"/",
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
+
+  
   return (
     <div className='p-4 h-screen flex items-center justify-center'>
       <RouterProvider router={router}/>

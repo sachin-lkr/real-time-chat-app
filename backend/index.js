@@ -37,6 +37,6 @@ app.get("/app",(req,res)=>{
  // database connect
 connectDB();
 
-app.listen(5000,(req,res)=>{
-    console.log(`server listen at port 5000`);
+app.listen(PORT,(req,res)=>{
+    console.log(`server listen at port ${PORT}`);
 })
