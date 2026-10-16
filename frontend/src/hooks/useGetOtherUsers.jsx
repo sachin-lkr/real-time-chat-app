@@ -10,7 +10,7 @@ function useGetOtherUsers() {
     const fetchOtherUsers = async () => {
       try {
         axios.defaults.withCredentials=true;
-        const res = await axios.get(`http://localhost:5000/api/v1/user/`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/`);
         console.log(res);
         // store
         dispatch(setOtherUsers(res.data));
