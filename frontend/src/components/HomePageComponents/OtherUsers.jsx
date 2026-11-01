@@ -1,6 +1,6 @@
 import React from "react";
 import OtherUser from "./OtherUser";
-import useGetOtherUsers from "../hooks/useGetOtherUsers.jsx";
+import useGetOtherUsers from "../../hooks/useGetOtherUsers.jsx";
 
 
 function OtherUsers({users}) {

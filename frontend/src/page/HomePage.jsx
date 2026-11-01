@@ -1,13 +1,13 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import MessageContainer from "../components/MessageContainer";
+import Sidebar from "../components/HomePageComponents/Sidebar";
+import MessageContainer from "../components/HomePageComponents/MessageContainer";
 
 const HomePage = () => {
   return (
-    <div className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800 ">
-      <Sidebar />
-      <MessageContainer />
-    </div>
+      <div className="flex h-screen w-full overflow-hidden bg-slate-950 text-slate-100 font-sans">
+        <Sidebar />
+        <MessageContainer />
+      </div>
   );
 };
 

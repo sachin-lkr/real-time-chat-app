@@ -1,6 +1,6 @@
 import React from "react";
 import Message from "./Message";
-import useGetMessages from "../hooks/useGetMessages";
+import useGetMessages from "../../hooks/useGetMessages";
 import { useSelector } from "react-redux";
 
 function Messages() {
@@ -8,7 +8,7 @@ function Messages() {
   const { messages } = useSelector((store) => store.message);
   if (!messages) return;
   return (
-    <div className="p-4 overflow-y-auto text-white ">
+    <div className="p-6 space-y-4 ">
       {messages && messages?.map((messages) => {
         return <Message key={messages._id} message={messages} />;
       })}

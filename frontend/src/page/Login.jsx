@@ -29,7 +29,7 @@ const Login = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        naviGate("/");
+        naviGate("/homepage");
         console.log(res.data);
         dispatch(setAuthUser(res.data));
       }
