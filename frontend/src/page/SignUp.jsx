@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import axios from "axios"
+import axios from "axios";
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -12,29 +12,29 @@ const SignUp = () => {
     gender: "",
   });
 
-  const naviGate=useNavigate();
+  const naviGate = useNavigate();
 
-  const onSubmitHeandler =async (e) => {
+  const onSubmitHeandler = async (e) => {
     e.preventDefault();
     try {
-      const res= await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/register`,user,{
-        headers:{
-          "Content-Type":"application/json"
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/user/register`,
+        user,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
         },
-        withCredentials:true
-      });
+      );
       console.log(res);
-        
-     if(res.data.success){
-      toast.success(res.data.message);
-      naviGate("/login");
 
-     }
-      
+      if (res.data.success) {
+        toast.success(res.data.message);
+        naviGate("/login");
+      }
     } catch (error) {
-      
       console.log(error);
-      
     }
     setUser({
       fullname: "",
@@ -50,8 +50,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="rounded-2xl flex items-center justify-center  from-slate-900 via-indigo-900 to-slate-800 p-2">
-      <div className="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20">
+    <div className=" h-screen flex items-center justify-center  bg-slate-950 text-slate-100 font-sans flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950 p-4">
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/10">
         <h1 className="text-3xl font-bold text-center text-white mb-6">
           Create Account
         </h1>
@@ -67,7 +67,7 @@ const SignUp = () => {
                 id="fullname"
                 name="fullname"
                 placeholder="Enter Full Name"
-                className="input input-bordered w-full mt-2"
+                className="custom-input"
                 value={user.fullname}
                 onChange={(e) => setUser({ ...user, fullname: e.target.value })}
               />
@@ -83,7 +83,7 @@ const SignUp = () => {
                 id="username"
                 name="username"
                 placeholder="Enter Username"
-                className="input input-bordered w-full mt-2"
+                className="custom-input"
                 value={user.username}
                 onChange={(e) => setUser({ ...user, username: e.target.value })}
               />
@@ -99,7 +99,7 @@ const SignUp = () => {
                 id="password"
                 name="password"
                 placeholder="Enter Password"
-                className="input input-bordered w-full mt-2"
+                className="custom-input"
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
@@ -118,7 +118,7 @@ const SignUp = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm Password"
-                className="input input-bordered w-full mt-2"
+                className="custom-input"
                 value={user.confirmpassword}
                 onChange={(e) =>
                   setUser({ ...user, confirmpassword: e.target.value })
@@ -130,7 +130,7 @@ const SignUp = () => {
                 <p>Male</p>
                 <input
                   type="checkbox"
-                  className="checkbox border-amber-50 rounded-2xl"
+                  className="checkbox checkbox-info border-slate-400"
                   value={user.gender}
                   checked={user.gender === "male"}
                   onChange={() => handelCheckBox("male")}
@@ -140,7 +140,7 @@ const SignUp = () => {
                 <p>Female</p>
                 <input
                   type="checkbox"
-                  className="checkbox border-amber-50 rounded-2xl"
+                  className="checkbox checkbox-info border-slate-400"
                   value={user.gender}
                   checked={user.gender === "female"}
                   onChange={() => handelCheckBox("female")}
@@ -148,7 +148,10 @@ const SignUp = () => {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary w-full mt-2">
+            <button
+              type="submit"
+              className="btn bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl w-full mt-2"
+            >
               Sign Up
             </button>
 

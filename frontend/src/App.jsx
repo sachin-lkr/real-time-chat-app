@@ -1,15 +1,16 @@
 import React from 'react'
 import {RouterProvider,createBrowserRouter} from "react-router-dom";
-import HomePage from './components/HomePage';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import HomePage from "./page/HomePage";
+import Login from "./page/Login";
+import SignUp from "./page/SignUp";
+import Dashboard from ".//page/Dashboard"
 
 
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element:<HomePage/>
+    element:<Dashboard/>
   },
   {
     path:"/login",
@@ -18,14 +19,18 @@ const router = createBrowserRouter([
   {
     path:"/signup",
     element:<SignUp/>
+  },
+  {
+    path:"/homepage",
+    element:<HomePage/>
+    
   }
 ])
 
 const App = () => {
 
-  
   return (
-    <div className='p-4 h-screen flex items-center justify-center'>
+    <div className=''>
       <RouterProvider router={router}/>
     </div>
   )

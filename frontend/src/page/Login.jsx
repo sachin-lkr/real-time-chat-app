@@ -42,11 +42,10 @@ const Login = () => {
       password: "",
     });
   };
-
   return (
-    <div className=" flex items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800 p-4">
-      <div className="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20">
-        <h1 className="text-3xl font-bold text-center text-white mb-6">
+    <div className=" h-screen flex items-center justify-center  bg-slate-950 text-slate-100 font-sans flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950 p-4">
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/10">
+        <h1 className="text-3xl font-bold text-center  mb-6">
           Log-In
         </h1>
 
@@ -62,14 +61,14 @@ const Login = () => {
                 id="username"
                 name="username"
                 placeholder="Enter Username"
-                className="input input-bordered w-full mt-2"
+                className="custom-input"
                 value={user.username}
                 onChange={(e) => setUser({ ...user, username: e.target.value })}
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="text-white font-medium">
+              <label htmlFor="password" className=" font-medium">
                 Password
               </label>
 
@@ -78,13 +77,15 @@ const Login = () => {
                 id="password"
                 name="password"
                 placeholder="Enter Password"
-                className="input input-bordered w-full mt-2"
+                className="custom-input"
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
             </div>
-
-            <button className="btn btn-primary w-full mt-2" type="submit">
+            <button
+              className="btn bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl w-full mt-2"
+              type="submit"
+            >
               Log In
             </button>
 
